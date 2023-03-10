@@ -23,5 +23,7 @@ To convert wav files to raw use this terminal command:
 **Citations**
 
 [1] Lyons, Richard. (2017). Digital Envelope Detection: The Good, the Bad, and the Ugly [Tips and Tricks]. IEEE Signal Processing Magazine. 34. 183-187. 10.1109/MSP.2017.2690438.
+
 [2] http://berndporr.github.io/iir1/
+
 [3] https://github.com/adamstark/AudioFile 
