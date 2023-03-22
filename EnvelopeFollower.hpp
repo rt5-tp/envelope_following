@@ -2,6 +2,9 @@
 #include <AudioFile.h>
 #include <stdio.h>
 #include <cmath>
+#include <vector>
+#include <thread>
+#include <mutex>
 
 class EnvelopeFollower {
     public:
@@ -13,6 +16,12 @@ class EnvelopeFollower {
         float out;
 
         EnvelopeFollower(int fs, int fc);
+        ~EnvelopeFollower();
+        void start();
+        void stop();
+        void registerCallback();
+        void Process(float sample);
+        static void exec();
 
-        float Process(float sample);
+        std::thread followerThread;
 };

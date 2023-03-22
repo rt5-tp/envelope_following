@@ -2,15 +2,20 @@
 #include <AudioFile.h>
 #include <stdio.h>
 #include <cmath>
+#include <vector>
+#include <thread>
+#include <mutex>
 #include "EnvelopeFollower.hpp"
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
-
+    // Initialising the Envelope Follower object, including starting the thread.
     fs = fs;
     fc = fc;
 
     // setup lowpass filter
     filter.setup(fs, fc);
+
+    start();
 }
 
 EnvelopeFollower::~EnvelopeFollower(){
@@ -18,7 +23,7 @@ EnvelopeFollower::~EnvelopeFollower(){
 }
 
 void EnvelopeFollower::start(){
-    follower = std::thread(&EnvelopeFollower::Process, this)
+    followerThread = new std::thread(&EnvelopeFollower::exec, this)
 }
 
 void EnvelopeFollower::stop(){
@@ -32,9 +37,11 @@ void EnvelopeFollower::stop(){
     }
 }
 
-void EnvelopeFollower::register
+void EnvelopeFollower::registerCallback(DataAvailableCallback cb){
+    callback = cb;
+}
 
-float EnvelopeFollower::Process(float sample){
+void EnvelopeFollower::Process(float sample){
 
     // Full-wave recitifier
     sample = abs(sample);
@@ -42,13 +49,11 @@ float EnvelopeFollower::Process(float sample){
     // Low-pass filter
     out = filter.filter(sample);
 
-    return out;
+    if (callback) {
+        callback(out);
+    }
 }
-
-uthread = new std::thread(EnvelopeFollower::exec, this);
 
 static void EnvelopeFollower::exec(EnvelopeFollower* cppThread){
     cppThread->Process();
 }
-
-//New idea: fly-wheel
