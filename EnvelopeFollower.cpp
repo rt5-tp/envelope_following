@@ -14,46 +14,30 @@ EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
 
     // setup lowpass filter
     filter.setup(fs, fc);
-
-    start();
 }
 
 EnvelopeFollower::~EnvelopeFollower(){
-    stop();
+    
 }
 
-void EnvelopeFollower::start(){
-    followerThread = new std::thread(&EnvelopeFollower::exec, this)
-}
-
-void EnvelopeFollower::stop(){
-    if (follower.joinable()){
-        {
-            std::unique_lock<std::mutex> lock(mtx);
-            stopThread = true;
-        }
-        cv.notify_one();
-        follower.join();
-    }
-}
-
-void EnvelopeFollower::registerCallback(DataAvailableCallback cb){
+void EnvelopeFollower::registerCallback(DataProcessed cb){
     callback = cb;
 }
 
-void EnvelopeFollower::Process(float sample){
+void EnvelopeFollower::Process(std::vector<short> buffer){
 
-    // Full-wave recitifier
-    sample = abs(sample);
+    std::vector<short> out;
 
-    // Low-pass filter
-    out = filter.filter(sample);
+    for (auto sample : buffer){
+
+        // Full-wave recitifier
+        sample = abs(sample);
+
+        // Low-pass filter
+        out.push_back(filter.filter(sample));
+    }
 
     if (callback) {
         callback(out);
     }
-}
-
-static void EnvelopeFollower::exec(EnvelopeFollower* cppThread){
-    cppThread->Process();
 }

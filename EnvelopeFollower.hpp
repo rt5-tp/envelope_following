@@ -7,21 +7,24 @@
 #include <mutex>
 
 class EnvelopeFollower {
-    public:
-        int fs;
-        int fc;
+public:
+    int fs;
+    int fc;
 
-        Iir::Butterworth::LowPass<4> filter;
-        
-        float out;
+    Iir::Butterworth::LowPass<4> filter;
 
-        EnvelopeFollower(int fs, int fc);
-        ~EnvelopeFollower();
-        void start();
-        void stop();
-        void registerCallback();
-        void Process(float sample);
-        static void exec();
+    float out;
 
-        std::thread followerThread;
+    EnvelopeFollower(int fs, int fc);
+    ~EnvelopeFollower();
+    typedef void (*DataProcessed)(const std::vector<short> &);
+    void registerCallback(DataProcessed cb);
+    void Process(std::vector<short> buffer);
+    static void exec();
+
+    std::thread followerThread;
+
+private:
+    DataProcessed callback;
+    
 };
