@@ -9,8 +9,8 @@
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
     // Initialising the Envelope Follower object, including starting the thread.
-    fs = fs;
-    fc = fc;
+    this->fs = fs;
+    this->fc = fc;
 
     // setup lowpass filter
     filter.setup(fs, fc);

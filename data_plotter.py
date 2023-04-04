@@ -19,6 +19,6 @@ axs[1].set_title("Envelope")
 
 fig.tight_layout()
 
-plt.savefig("EnvelopeFollower.svg")
+plt.savefig("RealTimeEnvelopeFollower.svg")
 
 

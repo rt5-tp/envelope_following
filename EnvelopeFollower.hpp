@@ -6,6 +6,8 @@
 #include <thread>
 #include <mutex>
 
+typedef void (*DataProcessed)(const std::vector<short> &);
+
 class EnvelopeFollower {
 public:
     int fs;
@@ -17,7 +19,6 @@ public:
 
     EnvelopeFollower(int fs, int fc);
     ~EnvelopeFollower();
-    typedef void (*DataProcessed)(const std::vector<short> &);
     void registerCallback(DataProcessed cb);
     void Process(std::vector<short> buffer);
     static void exec();
