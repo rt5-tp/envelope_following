@@ -16,13 +16,17 @@ To subjectivley assess the results of different filter cut-off frequencies, the 
 
 This plot shows how the envelope follower is working and that a 10Hz cutoff frequency is a suitable choice.
 
-### Testing the class
+### Real-time Implementation
 
-An initial test of the EnvelopeFollower class (test.cpp) was successful:
+A class was written to implement the envelope follower algorithm in real-time (EnvelopeFollower.cpp).
+
+An initial test of this class (test.cpp) was successful:
 
 <div align="center">
-    <img width="70%" src="EnvelopeFollower.svg">
+    <img width="70%" src="RealTimeEnvelopeFollower.svg">
 </div>
+
+*Note: In order to convert between floating point values read from the input .wav file to short integers, each sample was also multiplied by 10,000. This will expalin the different x-axis values in the plot above.*
 
 ## Tips
 

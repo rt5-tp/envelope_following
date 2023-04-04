@@ -15,31 +15,29 @@ int main(){
     const int fs = audio.getSampleRate();
 
     FILE *finput = fopen("Input.txt", "wt");
-    FILE *foutput = fopen("20HzEnvelope.txt","wt");
+    FILE *foutput = fopen("10HzEnvelope.txt","wt");
 
     // IIR Filter
     // initialise lowpass filter
     Iir::Butterworth::LowPass<4> filter;
-    filter.setup(fs, 20);
+    filter.setup(fs, 10);
 
     for (int i = 0; i < audio.getNumSamplesPerChannel(); i++){
-        for (int channel = 0; channel < audio.getNumChannels(); channel++){
 
-            float sample = audio.samples[channel][i];
+        float sample = audio.samples[0][i];
 
-            fprintf(finput, "%f\n", sample);
+        fprintf(finput, "%f\n", sample);
 
-            //Recitifcation
-            sample = abs(sample);
+        //Recitifcation
+        sample = abs(sample);
 
-            // low-pass filter
-            float out = filter.filter(sample);
+        // low-pass filter
+        float out = filter.filter(sample);
 
-            // output
-            // std::cout << out << std::endl;
+        // output
+        // std::cout << out << std::endl;
 
-            fprintf(foutput, "%f\n", out);
-        }
+        fprintf(foutput, "%f\n", out);
     }
 
     // Plot output
