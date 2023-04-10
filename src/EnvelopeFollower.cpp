@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <cmath>
 #include <vector>
-#include <thread>
-#include <mutex>
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
     // Initialising the Envelope Follower object, including starting the thread.
@@ -16,7 +14,6 @@ EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
 }
 
 EnvelopeFollower::~EnvelopeFollower(){
-    
 }
 
 void EnvelopeFollower::registerCallback(DataProcessed cb){
