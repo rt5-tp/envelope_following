@@ -3,6 +3,7 @@
 *.json
 .vscode/*
 envelope_follower.dSYM/
+*.exe
 
 # Ignore CMake files
 CMakeLists.txt.user
