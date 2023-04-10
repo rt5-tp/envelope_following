@@ -2,7 +2,7 @@
 
 Various types of envelope follower are described by Rick Lyons [1]. At their most basic, they consist of a lowpass filter, which removes the higher frequecy 'carrier' frequencies from a signal to just leave the lower frequecy waveform of the shape the signal makes. This is the same as the decoding of an Amplitude Modulated radio signal. Additionally, the envelope should be entirely positive-valued, so the negative values should be removed by performing half or full-wave rectification. According to the figures provided by Rick Lyons, the latter (asynchronous full-wave envelope detection) provides a smoother output, so this will be attempted.
 
-### envelope_follower_test.cpp
+### Initial, Non-real-time Test (envelope_follower_test.cpp)
 
 My first attempt consists simply of an 'absolute' operation then a lowpass IIR filter [2]. This will be tested using a wav imported using the AudioFile module [3].
 
@@ -16,13 +16,17 @@ To subjectivley assess the results of different filter cut-off frequencies, the 
 
 This plot shows how the envelope follower is working and that a 10Hz cutoff frequency is a suitable choice.
 
-### Testing the class
+### Real-time Implementation
 
-An initial test of the EnvelopeFollower class (test.cpp) was successful:
+A class was written to implement the envelope follower algorithm in real-time (EnvelopeFollower.cpp).
+
+An initial test of this class (test.cpp) was successful:
 
 <div align="center">
-    <img width="70%" src="EnvelopeFollower.svg">
+    <img width="70%" src="RealTimeEnvelopeFollower.svg">
 </div>
+
+*Note: In order to convert between floating point values read from the input .wav file to short integers, each sample was also multiplied by 10,000. This will expalin the different x-axis values in the plot above.*
 
 ## Tips
 

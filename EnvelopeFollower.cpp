@@ -2,24 +2,42 @@
 #include <AudioFile.h>
 #include <stdio.h>
 #include <cmath>
+#include <vector>
+#include <thread>
+#include <mutex>
 #include "EnvelopeFollower.hpp"
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
-
-    fs = fs;
-    fc = fc;
+    // Initialising the Envelope Follower object, including starting the thread.
+    this->fs = fs;
+    this->fc = fc;
 
     // setup lowpass filter
     filter.setup(fs, fc);
 }
 
-float EnvelopeFollower::Process(float sample){
+EnvelopeFollower::~EnvelopeFollower(){
+    
+}
 
-    // Full-wave recitifier
-    sample = abs(sample);
+void EnvelopeFollower::registerCallback(DataProcessed cb){
+    callback = cb;
+}
 
-    // Low-pass filter
-    out = filter.filter(sample);
+void EnvelopeFollower::Process(std::vector<short> buffer){
 
-    return out;
+    std::vector<short> out;
+
+    for (auto sample : buffer){
+
+        // Full-wave recitifier
+        sample = abs(sample);
+
+        // Low-pass filter
+        out.push_back(filter.filter(sample));
+    }
+
+    if (callback) {
+        callback(out);
+    }
 }

@@ -3,3 +3,6 @@ sine-wave.wav
 quieter-audio-filter.wav
 envelope_follower
 *.txt
+*.json
+.vscode/*
+envelope_follower.dSYM/

@@ -4,6 +4,21 @@
 #include <cmath>
 #include "EnvelopeFollower.hpp"
 
+FILE *finput;
+FILE *foutput;
+
+short floatToShort(float x)
+{
+    return (short) x;
+}
+
+void writeOutput(std::vector<short> buffer)
+{
+    for (auto sample : buffer){
+        fprintf(foutput, "%d\n", sample);
+    }
+}
+
 int main()
 {
     // Load audio file
@@ -11,29 +26,35 @@ int main()
     bool loadedOK = audio.load("test-audio.wav");
     assert(loadedOK);
 
-    const int no_frames = audio.getNumSamplesPerChannel();
-    const int fs = audio.getSampleRate();
+    int no_frames = audio.getNumSamplesPerChannel();
+    int fs = audio.getSampleRate();
 
-    FILE *finput = fopen("Input.txt", "wt");
-    FILE *foutput = fopen("Envelope.txt", "wt");
+    finput = fopen("Input.txt", "wt");
+    foutput = fopen("Envelope.txt", "wt");
 
-    // IIR Filter
     EnvelopeFollower follower(fs,10);
 
-    for (int i = 0; i < audio.getNumSamplesPerChannel(); i++)
+    follower.registerCallback((DataProcessed) writeOutput);
+
+    std::vector<short> buffer;
+
+    for (int i = 0; i < no_frames; i++)
     {
-        for (int channel = 0; channel < audio.getNumChannels(); channel++)
-        {
+        short sample = floatToShort(audio.samples[0][i]*10000);
+        buffer.push_back(sample);
 
-            float sample = audio.samples[channel][i];
+        fprintf(finput, "%d\n", sample);
 
-            fprintf(finput, "%f\n", sample);
+        if (buffer.size() == 4096) {
 
-            float out = follower.Process(sample);
+            follower.Process(buffer);
 
-            fprintf(foutput, "%f\n", out);
+            buffer.clear();
         }
     }
+
+    fclose(foutput);
+    fclose(finput);
 
     return 0;
 }

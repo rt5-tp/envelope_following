@@ -2,17 +2,30 @@
 #include <AudioFile.h>
 #include <stdio.h>
 #include <cmath>
+#include <vector>
+#include <thread>
+#include <mutex>
+
+typedef void (*DataProcessed)(const std::vector<short> &);
 
 class EnvelopeFollower {
-    public:
-        int fs;
-        int fc;
+public:
+    int fs;
+    int fc;
 
-        Iir::Butterworth::LowPass<4> filter;
-        
-        float out;
+    Iir::Butterworth::LowPass<4> filter;
 
-        EnvelopeFollower(int fs, int fc);
+    float out;
 
-        float Process(float sample);
+    EnvelopeFollower(int fs, int fc);
+    ~EnvelopeFollower();
+    void registerCallback(DataProcessed cb);
+    void Process(std::vector<short> buffer);
+    static void exec();
+
+    std::thread followerThread;
+
+private:
+    DataProcessed callback;
+    
 };
