@@ -11,7 +11,7 @@ The key design element of this envelope follower is the IIR filter. A suitably l
 To subjectivley assess the results of different filter cut-off frequencies, the outputs from pseudo-real-time tests were output as txt files and plotted using the matplotlib.pyplot python library.
 
 <div align="center">
-    <img width="70%" src="filter_comparison.svg">
+    <img width="70%" src="assets/images/filter_comparison.svg">
 </div>
 
 This plot shows how the envelope follower is working and that a 10Hz cutoff frequency is a suitable choice.
@@ -23,7 +23,7 @@ A class was written to implement the envelope follower algorithm in real-time (E
 An initial test of this class (test.cpp) was successful:
 
 <div align="center">
-    <img width="70%" src="RealTimeEnvelopeFollower.svg">
+    <img width="70%" src="assets/images/RealTimeEnvelopeFollower.svg">
 </div>
 
 *Note: In order to convert between floating point values read from the input .wav file to short integers, each sample was also multiplied by 10,000. This will expalin the different x-axis values in the plot above.*

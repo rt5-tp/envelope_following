@@ -1,11 +1,10 @@
+#include "EnvelopeFollower.hpp"
 #include <Iir.h>
-#include <AudioFile.h>
 #include <stdio.h>
 #include <cmath>
 #include <vector>
 #include <thread>
 #include <mutex>
-#include "EnvelopeFollower.hpp"
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
     // Initialising the Envelope Follower object, including starting the thread.
