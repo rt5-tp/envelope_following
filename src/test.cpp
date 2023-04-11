@@ -47,7 +47,7 @@ int main()
 
         if (buffer.size() == 4096) {
 
-            follower.Process(buffer);
+            follower.audio_callback(buffer);
 
             buffer.clear();
         }
