@@ -10,7 +10,7 @@ public:
     EnvelopeFollower(int fs, int fc);
     ~EnvelopeFollower();
     void registerCallback(DataProcessed cb);
-    static void Process(std::vector<short> buffer);
+    static void audio_callback(const std::vector<short>& buffer);
 
 private:
     static EnvelopeFollower* singleton;

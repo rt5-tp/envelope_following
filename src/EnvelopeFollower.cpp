@@ -23,7 +23,7 @@ void EnvelopeFollower::registerCallback(DataProcessed cb){
     callback = cb;
 }
 
-void EnvelopeFollower::Process(std::vector<short> buffer){
+void EnvelopeFollower::audio_callback(const std::vector<short>& buffer){
 
     std::vector<short> out;
 
