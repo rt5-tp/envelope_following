@@ -4,6 +4,8 @@
 #include <cmath>
 #include <vector>
 
+EnvelopeFollower* EnvelopeFollower::singleton;
+
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
     // Initialising the Envelope Follower object, including starting the thread.
     this->fs = fs;
@@ -11,6 +13,7 @@ EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
 
     // setup lowpass filter
     filter.setup(fs, fc);
+    singleton = this;
 }
 
 EnvelopeFollower::~EnvelopeFollower(){
@@ -30,10 +33,10 @@ void EnvelopeFollower::Process(std::vector<short> buffer){
         sample = abs(sample);
 
         // Low-pass filter
-        out.push_back(filter.filter(sample));
+        out.push_back(singleton->filter.filter(sample));
     }
 
-    if (callback) {
-        callback(out);
+    if (singleton->callback) {
+        singleton->callback(out);
     }
 }

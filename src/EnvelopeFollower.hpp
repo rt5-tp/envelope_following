@@ -10,9 +10,10 @@ public:
     EnvelopeFollower(int fs, int fc);
     ~EnvelopeFollower();
     void registerCallback(DataProcessed cb);
-    void Process(std::vector<short> buffer);
+    static void Process(std::vector<short> buffer);
 
 private:
+    static EnvelopeFollower* singleton;
     DataProcessed callback;
     Iir::Butterworth::LowPass<4> filter;
     int fs;
