@@ -1,6 +1,10 @@
 .out
 *.txt
 *.json
+*.svg
+
+!src/CMakeLists.txt
+!assets/images/*
 .vscode/*
 envelope_follower.dSYM/
 *.exe
