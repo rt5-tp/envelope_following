@@ -3,7 +3,7 @@
 Various types of envelope follower are described by Rick Lyons [[1]](https://www.dsprelated.com/showarticle/938.php). At their most basic, they consist of a lowpass filter, which removes the higher frequecy 'carrier' frequencies from a signal to just leave the lower frequecy waveform of the shape the signal makes. This is the same as the decoding of an Amplitude Modulated radio signal. Additionally, the envelope should be entirely positive-valued, so the negative values should be removed by performing half or full-wave rectification. According to the figures provided by Rick Lyons, the latter (asynchronous full-wave envelope detection) provides a smoother output, so this was used.
 
 <div align="center">
-    <img width="70%" src="assets/images/Data%20Flow.svg"> 
+    <img width="100%" src="assets/images/Data%20Flow.svg"> 
 </div>
 
 ### Initial, Non-real-time Test (envelope_follower_test.cpp)
