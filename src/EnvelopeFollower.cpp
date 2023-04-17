@@ -7,11 +7,10 @@
 EnvelopeFollower* EnvelopeFollower::singleton;
 
 EnvelopeFollower::EnvelopeFollower(int fs, int fc = 10){
-    // Initialising the Envelope Follower object, including starting the thread.
     this->fs = fs;
     this->fc = fc;
 
-    // setup lowpass filter
+    // instantiate lowpass filter
     filter.setup(fs, fc);
     singleton = this;
 }
