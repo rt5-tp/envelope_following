@@ -1,12 +1,12 @@
 .out
 *.txt
-
 .DS_Store
 launch.json
 old_tasks.json
 Info.plist
 *.json
 *.svg
+envelope_follower
 
 !src/CMakeLists.txt
 !assets/images/*
