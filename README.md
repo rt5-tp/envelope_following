@@ -1,10 +1,14 @@
 # Envelope Following
 
-Various types of envelope follower are described by Rick Lyons [[1]](https://www.dsprelated.com/showarticle/938.php). At their most basic, they consist of a lowpass filter, which removes the higher frequecy 'carrier' frequencies from a signal to just leave the lower frequecy waveform of the shape the signal makes. This is the same as the decoding of an Amplitude Modulated radio signal. Additionally, the envelope should be entirely positive-valued, so the negative values should be removed by performing half or full-wave rectification. According to the figures provided by Rick Lyons, the latter (asynchronous full-wave envelope detection) provides a smoother output, so this will be attempted.
+Various types of envelope follower are described by Rick Lyons [[1]](https://www.dsprelated.com/showarticle/938.php). At their most basic, they consist of a lowpass filter, which removes the higher frequecy 'carrier' frequencies from a signal to just leave the lower frequecy waveform of the shape the signal makes. This is the same as the decoding of an Amplitude Modulated radio signal. Additionally, the envelope should be entirely positive-valued, so the negative values should be removed by performing half or full-wave rectification. According to the figures provided by Rick Lyons, the latter (asynchronous full-wave envelope detection) provides a smoother output, so this was used.
+
+<div align="center">
+    <img width="70%" src="assets/images/Data%20Flow.svg"> 
+</div>
 
 ### Initial, Non-real-time Test (envelope_follower_test.cpp)
 
-My first attempt consists simply of an 'absolute' operation then a lowpass IIR filter [[2]](http://berndporr.github.io/iir1/). This will be tested using a wav imported using the AudioFile module [[3]](https://github.com/adamstark/AudioFile).
+The first attempt consists simply of an 'absolute' operation then a lowpass IIR filter [[2]](http://berndporr.github.io/iir1/). This will be tested using a wav imported using the AudioFile module [[3]](https://github.com/adamstark/AudioFile).
 
 The key design element of this envelope follower is the IIR filter. A suitably low cut-off frequency must be selected to remove high-frequency complexities from the signal, but cannot be so low that intricacies of the envelope are lost. Also, a narro transition band will be beneficial.
 
