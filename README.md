@@ -6,7 +6,7 @@ Various types of envelope follower are described by Rick Lyons [[1]](https://www
     <img width="100%" src="assets/images/Data%20Flow.svg"> 
 </div>
 
-### Initial, Non-real-time Test (envelope_follower_test.cpp)
+### Initial, Non-real-time Test
 
 The first attempt consists simply of an 'absolute' operation then a lowpass IIR filter [[2]](http://berndporr.github.io/iir1/). This will be tested using a wav imported using the AudioFile module [[3]](https://github.com/adamstark/AudioFile).
 
