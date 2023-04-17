@@ -3,3 +3,8 @@ sine-wave.wav
 quieter-audio-filter.wav
 envelope_follower
 *.txt
+
+.DS_Store
+launch.json
+old_tasks.json
+Info.plist
