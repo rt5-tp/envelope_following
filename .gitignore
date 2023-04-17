@@ -9,6 +9,7 @@ Info.plist
 envelope_follower
 
 !src/CMakeLists.txt
+!test/CMakeLists.txt
 !assets/images/*
 .vscode/*
 envelope_follower.dSYM/
